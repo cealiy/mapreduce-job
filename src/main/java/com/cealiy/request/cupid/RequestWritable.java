@@ -1,4 +1,4 @@
-package com.cealiy.hadoop.request.statistics;
+package com.cealiy.request.cupid;
 
 import java.io.DataInput;
 import java.io.DataOutput;

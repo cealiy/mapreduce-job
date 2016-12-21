@@ -1,4 +1,4 @@
-package com.cealiy.hadoop.request.statistics;
+package com.cealiy.request.cupid;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -7,25 +7,19 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
 
 public class RequestStatistics {
 	
-	public static void main(String[] args) throws Exception {
+	public static void statistics(String in,String out) throws Exception {
 	    Configuration conf = new Configuration();
-	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-	    if (otherArgs.length < 2) {
-	      System.err.println("Usage: request-statics <in> <out>");
-	      System.exit(2);
-	    }
-	    Job job = Job.getInstance(conf, "statistics request");
+	    Job job = Job.getInstance(conf, "statistics-cupid-request");
 	    job.setJarByClass(RequestStatistics.class);
 		job.setMapperClass(RequestMapper.class);
 		job.setReducerClass(RequestReducer.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(IntWritable.class);
-		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		FileInputFormat.addInputPath(job, new Path(in));
+		FileOutputFormat.setOutputPath(job, new Path(out));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
 	

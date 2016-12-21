@@ -1,4 +1,4 @@
-package com.cealiy.hadoop.request.statistics;
+package com.cealiy.request.cupid;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -26,8 +26,7 @@ public class RequestReducer extends Reducer<Text,IntWritable,Text,RequestWritabl
 			result.setCount(count);
 			result.setMaxExecuteTime(maxExecuteTime);
 			result.setTotalExecuteTime(totalExecuteTime);
-			context.write(key,result);
-			System.out.println("+After <Reduce>: " + key + ", " +result.getCount());	
+			context.write(key,result);	
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package com.cealiy.hadoop.request.statistics;
+package com.cealiy.request.cupid;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -27,7 +27,6 @@ public class RequestMapper extends Mapper<Object, Text, Text,IntWritable>{
 			String cost=log.substring(costStartIndex+7,log.length()-2);
 			int costms=Integer.parseInt(cost);
 			context.write(new Text(uri),new IntWritable(costms));
-			System.out.println("+After <Mapper>:" + new Text(uri) + ", " + costms);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
