@@ -1,5 +1,7 @@
 package com.cealiy.request.cupid;
 
+import java.io.IOException;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -7,8 +9,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class RequestReducer extends Reducer<Text,IntWritable,Text,RequestWritable>{
 	
 	@Override
-	public void reduce(Text key, Iterable<IntWritable> values,Reducer<Text,IntWritable,Text,RequestWritable>.Context context){
-		try{
+	public void reduce(Text key, Iterable<IntWritable> values,
+			Reducer<Text, IntWritable, Text, RequestWritable>.Context context)
+					throws IOException, InterruptedException{
 			int totalExecuteTime=0;
 			int count=0;
 			int maxExecuteTime=0;
@@ -27,9 +30,7 @@ public class RequestReducer extends Reducer<Text,IntWritable,Text,RequestWritabl
 			result.setMaxExecuteTime(maxExecuteTime);
 			result.setTotalExecuteTime(totalExecuteTime);
 			context.write(key,result);	
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 	}
 
 }
