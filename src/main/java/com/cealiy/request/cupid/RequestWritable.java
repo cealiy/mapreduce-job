@@ -11,7 +11,7 @@ public class RequestWritable implements WritableComparable {
 
 	private int count;
 
-	private int totalExecuteTime;
+	private long totalExecuteTime;
 
 	private int maxExecuteTime;
 
@@ -23,11 +23,12 @@ public class RequestWritable implements WritableComparable {
 		this.count = count;
 	}
 
-	public int getTotalExecuteTime() {
+
+	public long getTotalExecuteTime() {
 		return totalExecuteTime;
 	}
 
-	public void setTotalExecuteTime(int totalExecuteTime) {
+	public void setTotalExecuteTime(long totalExecuteTime) {
 		this.totalExecuteTime = totalExecuteTime;
 	}
 
@@ -40,19 +41,19 @@ public class RequestWritable implements WritableComparable {
 	}
 
 	public int getAverageExcuteTime() {
-		return this.totalExecuteTime / this.count;
+		return (int) (this.totalExecuteTime / this.count);
 	}
 
 	public void write(DataOutput out) throws IOException {
 		out.writeInt(this.count);
 		out.writeInt(this.maxExecuteTime);
-		out.writeInt(this.totalExecuteTime);
+		out.writeLong(this.totalExecuteTime);
 	}
 
 	public void readFields(DataInput in) throws IOException {
 		this.count = in.readInt();
 		this.maxExecuteTime = in.readInt();
-		this.totalExecuteTime = in.readInt();
+		this.totalExecuteTime = in.readLong();
 	}
 
 	public int compareTo(Object param) {
